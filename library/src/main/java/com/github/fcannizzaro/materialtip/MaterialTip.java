@@ -34,7 +34,7 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
 
     private Context context;
     private ButtonListener listener;
-    private Button positive, negative;
+    private Button positive, negative, neutral;
     private TextView title, text;
     private ImageView icon;
     private View tip;
@@ -57,6 +57,7 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
 
             String positiveStr = array.getString(R.styleable.MaterialTip_tip_positive);
             String negativeStr = array.getString(R.styleable.MaterialTip_tip_negative);
+            String neutralStr = array.getString(R.styleable.MaterialTip_tip_neutral);
 
             color = array.getColor(R.styleable.MaterialTip_tip_color, ContextCompat.getColor(context, R.color.colorPrimary));
             background = array.getColor(R.styleable.MaterialTip_tip_background, ContextCompat.getColor(context, R.color.tip_background));
@@ -66,6 +67,7 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
             text.setText(array.getString(R.styleable.MaterialTip_tip_text));
             positive.setText(positiveStr);
             negative.setText(negativeStr);
+            neutral.setText(neutralStr);
             icon.setImageDrawable(array.getDrawable(R.styleable.MaterialTip_tip_icon));
 
 
@@ -94,6 +96,7 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
         tip = findViewById(R.id.tip);
         positive = (Button) findViewById(R.id.tip_positive);
         negative = (Button) findViewById(R.id.tip_negative);
+        neutral = (Button) findViewById(R.id.tip_neutral);
         title = (TextView) findViewById(R.id.tip_title);
         text = (TextView) findViewById(R.id.tip_text);
         icon = (ImageView) findViewById(R.id.tip_icon);
@@ -101,6 +104,7 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
         tip.setOnTouchListener(this);
         positive.setOnClickListener(this);
         negative.setOnClickListener(this);
+        neutral.setOnClickListener(this);
 
         waitHeight();
 
@@ -151,6 +155,12 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
 
     public MaterialTip withNegative(String negative) {
         this.negative.setText(negative);
+        checkButtonsVisibility();
+        return this;
+    }
+
+    public MaterialTip withNeutral(String neutral) {
+        this.neutral.setText(neutral);
         checkButtonsVisibility();
         return this;
     }
@@ -234,6 +244,12 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
         return this;
     }
 
+    public MaterialTip withNeutralRes(@StringRes int neutral) {
+        this.neutral.setText(context.getText(neutral));
+        checkButtonsVisibility();
+        return this;
+    }
+
     public void show() {
 
         animate()
@@ -276,16 +292,19 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
         title.setTextColor(titleColor);
         text.setTextColor(textColor);
         negative.setTextColor(color);
+        neutral.setTextColor(color);
 
         // background
         tip.setBackgroundColor(background);
         negative.setBackgroundColor(background);
+        neutral.setBackgroundColor(background);
         positive.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
     private void checkButtonsVisibility() {
         positive.setVisibility(positive.getText().toString().isEmpty() ? GONE : VISIBLE);
         negative.setVisibility(negative.getText().toString().isEmpty() ? GONE : VISIBLE);
+        neutral.setVisibility(neutral.getText().toString().isEmpty() ? GONE : VISIBLE);
         title.setVisibility(title.getText().toString().isEmpty() ? GONE : VISIBLE);
     }
 
@@ -309,6 +328,9 @@ public class MaterialTip extends RelativeLayout implements View.OnClickListener,
 
             else if (id == R.id.tip_negative)
                 listener.onNegative(this);
+
+            else if (id == R.id.tip_neutral)
+                listener.onNeutral(this);
         }
 
         hide();

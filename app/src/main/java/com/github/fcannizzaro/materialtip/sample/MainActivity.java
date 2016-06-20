@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 .withBackgroundRes(R.color.tip_background)
                 .withTextColorRes(R.color.tip_text)
                 .withTitleColorRes(R.color.tip_title)
+                .withNeutral("Google Maps")
                 .withButtonListener(new ButtonListener() {
 
                     @Override
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("negative");
                     }
 
+                    @Override
+                    public void onNeutral(MaterialTip tip) {
+                        System.out.println("neutral");
+                    }
                 });
 
 

@@ -11,4 +11,5 @@ public interface ButtonListener {
 
     void onNegative(MaterialTip tip);
 
+    void onNeutral(MaterialTip tip);
 }

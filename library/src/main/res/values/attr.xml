@@ -10,5 +10,6 @@
         <attr name="tip_text" format="string"/>
         <attr name="tip_positive" format="string"/>
         <attr name="tip_negative" format="string"/>
+        <attr name="tip_neutral" format="string"/>
     </declare-styleable>
 </resources>

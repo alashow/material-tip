@@ -70,6 +70,11 @@
             android:visibility="gone"/>
 
         <Button
+            android:id="@+id/tip.neutral"
+            style="@style/TipButton"
+            android:visibility="gone"/>
+
+        <Button
             android:id="@+id/tip.positive"
             style="@style/TipButton"
             android:layout_marginRight="16dp"
